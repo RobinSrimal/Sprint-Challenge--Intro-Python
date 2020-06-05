@@ -38,12 +38,12 @@ def cityreader(cities=[]):
         reader = csv.reader(c) # create the reader object
         next(reader, None) # skip the first row
         for row in reader: # iterate over the rest of the csv
-            cities.append(City(row[0], row[3], row[4])) # create the City objects 
+            cities.append(City(row[0], float(row[3]), float(row[4]))) # create the City objects 
                                                         # and append to list
     return cities
 
 
-cityreader(cities)
+cities = cityreader(cities)
 
 # Print the list of cities (name, lat, lon), 1 record per line.
 for c in cities:
@@ -95,10 +95,16 @@ for c in cities:
 #lat2 = float(lat2)
 #lon2 = float(lon2)
 
+print("-------")
 
-
-def cityreader_stretch(lat1, lon1, lat2, lon2, cities = []):
+def cityreader_stretch(lat1, lon1, lat2, lon2, cities = cities):
   # within will hold the cities that fall within the specified region
+
+  lat1 = float(lat1)
+  lat2 = float(lat2)
+
+  lon1 = float(lon1)
+  lon2 = float(lon2)
   within = []
 
   # test if input are floats

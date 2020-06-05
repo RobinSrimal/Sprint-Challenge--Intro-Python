@@ -80,7 +80,7 @@ class CityreaderTests(unittest.TestCase):
       City("Louisville", 38.1662,-85.6488)
     ]
 
-    inp = cityreader_stretch(40, -50, 12, -120, self.cities)
+    inp = cityreader_stretch(40.0, -50.0, 12.0, -120.0, self.cities)
 
     for i in range(len(inp)):
       self.assertTrue(check_city(inp[i], expected[i]))
