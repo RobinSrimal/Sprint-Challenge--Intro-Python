@@ -1,6 +1,23 @@
 # Create a class to hold a city location. Call the class "City". It should have
 # fields for name, lat and lon (representing latitude and longitude).
 
+import csv
+
+class City:
+
+    def __init__(self, name, lat, lon):
+
+        self.name = name
+        self.lat = lat
+        self.lon = lon
+
+    def __repr__(self):
+      
+      return f'{self.name}, {self.lat}, {self.lon}'
+
+
+  
+
 
 # We have a collection of US cities with population over 750,000 stored in the
 # file "cities.csv". (CSV stands for "comma-separated values".)
@@ -17,17 +34,22 @@
 cities = []
 
 def cityreader(cities=[]):
-  # TODO Implement the functionality to read from the 'cities.csv' file
-  # For each city record, create a new City instance and add it to the 
-  # `cities` list
-    
+    with open('cities.csv') as c:
+        reader = csv.reader(c) # create the reader object
+        next(reader, None) # skip the first row
+        for row in reader: # iterate over the rest of the csv
+            cities.append(City(row[0], row[3], row[4])) # create the City objects 
+                                                        # and append to list
     return cities
+
 
 cityreader(cities)
 
 # Print the list of cities (name, lat, lon), 1 record per line.
 for c in cities:
     print(c)
+
+
 
 # STRETCH GOAL!
 #
@@ -60,12 +82,41 @@ for c in cities:
 
 # TODO Get latitude and longitude values from the user
 
-def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
+#first = input("please type in a pair of latitude and longitude as floats: ")
+
+#second = input("please type in another pair of latitude and longitude as floats: ")
+
+#lat1, lon1 = first.split()
+
+#lat2, lon2 = second.split()
+
+#lat1 = float(lat1)
+#lon1 = float(lon1)
+#lat2 = float(lat2)
+#lon2 = float(lon2)
+
+
+
+def cityreader_stretch(lat1, lon1, lat2, lon2, cities = []):
   # within will hold the cities that fall within the specified region
   within = []
 
-  # TODO Ensure that the lat and lon valuse are all floats
-  # Go through each city and check to see if it falls within 
-  # the specified coordinates.
+  # test if input are floats
+  if type(lat1) == type(lat2) == type(lon1) == type(lon2) == float:
 
-  return within
+    # sort the values
+    lats = sorted([lat1,lat2])
+    lons = sorted([lon1,lon2])
+    # find cities that fall in range
+    for c in cities:
+      if lats[0]<=c.lat<=lats[1] and lons[0]<=c.lon<=lons[1]:
+        within.append(c)
+    
+    return within
+
+  else:
+    print("All points must be provided as floats")
+
+
+
+
